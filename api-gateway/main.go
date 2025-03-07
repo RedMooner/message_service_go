@@ -12,8 +12,14 @@ func main() {
     messageServiceURL, _ := url.Parse("http://message-service:8081")
     messageServiceProxy := httputil.NewSingleHostReverseProxy(messageServiceURL)
 
+    timeServiceURL, _ := url.Parse("http://time-service:8082")
+    timeServiceProxy := httputil.NewSingleHostReverseProxy(timeServiceURL)
+
     http.HandleFunc("/message", func(w http.ResponseWriter, r *http.Request) {
         messageServiceProxy.ServeHTTP(w, r)
+    })
+    http.HandleFunc("/time", func(w http.ResponseWriter, r *http.Request){
+        timeServiceProxy.ServeHTTP(w,r)
     })
 
     log.Println("API Gateway is running on port 8080...")

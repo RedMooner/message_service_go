@@ -9,10 +9,16 @@ services:
       - "8080:8080"
     depends_on:
       - message-service
-
+      - time-service
   message-service:
     build:
       context: .
       dockerfile: message-service/Dockerfile
     ports:
       - "8081:8081"
+  time-service:
+    build:
+      context: .
+      dockerfile: time-service/Dockerfile
+    ports:
+      - "8082:8082"
